@@ -139,9 +139,14 @@ class RutController extends Controller
         return $activities;
     }
 
-    private function formatClRut($rut)
+    public static function formatClRut($rut)
     {
-        // Implementa aquí la lógica de formato de RUT si es necesario
-        return $rut;
+        if (strlen($rut) < 3) {
+            return null;
+        }
+
+        $rut = preg_replace('/[^0-9Kk]/', '', $rut);
+
+        return substr($rut, 0, -1).'-'.substr($rut, -1, 1);
     }
 }
